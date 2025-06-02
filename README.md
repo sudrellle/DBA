@@ -1,91 +1,91 @@
-# Project DBA - Magasin
+# Projet DBA - Magasin
 
-This project implements a SQL database for managing a store (magasin). It includes tables for products, categories, customers, and purchases. Several views and functions are provided to analyze sales data.
+Ce projet implémente une base de données SQL pour la gestion d'un magasin. Il comprend des tables pour les produits, les catégories, les clients et les achats. Plusieurs vues et fonctions sont fournies pour analyser les données de vente.
 
-The `script.ipynb` notebook contains all the SQL statements necessary to create the database structure, tables, views, and functions.
+Le notebook `script.ipynb` contient toutes les instructions SQL nécessaires pour créer la structure de la base de données, les tables, les vues et les fonctions.
 
-## Database Schema
+## Schéma de la Base de Données
 
-The database consists of the following tables:
+La base de données est constituée des tables suivantes :
 
 ### `categorie`
-- Purpose: Stores product categories.
-- Columns:
-    - `id` (INT, Primary Key): Category ID.
-    - `nom` (VARCHAR(50)): Category name.
+- Objectif : Stocke les catégories de produits.
+- Colonnes :
+    - `id` (INT, Clé Primaire) : ID de la catégorie.
+    - `nom` (VARCHAR(50)) : Nom de la catégorie.
 
 ### `produit`
-- Purpose: Stores product information.
-- Columns:
-    - `id` (INT, Primary Key): Product ID.
-    - `id_categorie` (INT, Foreign Key): ID of the category the product belongs to.
-    - `nom_produit` (VARCHAR(90)): Product name.
-    - `prix` (INT): Product price.
-    - `stock_initial` (INT): Initial stock quantity.
+- Objectif : Stocke les informations sur les produits.
+- Colonnes :
+    - `id` (INT, Clé Primaire) : ID du produit.
+    - `id_categorie` (INT, Clé Étrangère) : ID de la catégorie à laquelle le produit appartient.
+    - `nom_produit` (VARCHAR(90)) : Nom du produit.
+    - `prix` (INT) : Prix du produit.
+    - `stock_initial` (INT) : Quantité initiale en stock.
 
 ### `client`
-- Purpose: Stores customer information.
-- Columns:
-    - `id` (INT, Primary Key): Customer ID.
-    - `nom_client` (VARCHAR(50)): Customer name.
-    - `age` (INT): Customer age.
-    - `sexe` (VARCHAR(1)): Customer gender (M/F).
+- Objectif : Stocke les informations sur les clients.
+- Colonnes :
+    - `id` (INT, Clé Primaire) : ID du client.
+    - `nom_client` (VARCHAR(50)) : Nom du client.
+    - `age` (INT) : Âge du client.
+    - `sexe` (VARCHAR(1)) : Sexe du client (H/F).
 
 ### `achat`
-- Purpose: Stores purchase information.
-- Columns:
-    - `id` (INT, Primary Key): Purchase ID.
-    - `id_produit` (INT, Foreign Key): ID of the product purchased.
-    - `id_client` (INT, Foreign Key): ID of the customer who made the purchase.
-    - `quantite_achat` (INT): Quantity of the product purchased.
-    - `date_achat` (DATE): Date of the purchase.
+- Objectif : Stocke les informations sur les achats.
+- Colonnes :
+    - `id` (INT, Clé Primaire) : ID de l'achat.
+    - `id_produit` (INT, Clé Étrangère) : ID du produit acheté.
+    - `id_client` (INT, Clé Étrangère) : ID du client ayant effectué l'achat.
+    - `quantite_achat` (INT) : Quantité du produit acheté.
+    - `date_achat` (DATE) : Date de l'achat.
 
-## Views
+## Vues
 
-The database includes several views for data analysis:
+La base de données comprend plusieurs vues pour l'analyse des données :
 
-- **`detail_tranche_26_40`**: Shows detailed purchase information for customers aged 26-40, including categories, gender, quantity, and revenue.
-- **`produit_non_vendu`**: Lists products that have not been sold.
-- **`stock_restant2`**: Displays the remaining stock for each category. (Note: There's also a `stock_restant` view, consider clarifying or merging if they are similar).
-- **`vw_top_produits`**: Shows the top 10 best-selling products by revenue and quantity.
-- **`vw_achats_par_mois`**: Displays total purchase amounts per month.
-- **`V_detail_client`**: Provides detailed customer analysis, including purchase count, total quantity, total spending, and ranks for quantity, loyalty, and revenue.
-- **`repartition_quantité_categorie`**: Shows the distribution of purchased quantities per category.
-- **`affiche_information`**: Displays combined information about clients, products, categories, and purchases.
-- **`nb_tranche_age`**: Shows the sum of quantities purchased and revenue generated per customer age group.
-- **`Top_5_client_revenu`**: Lists the top 5 customers by revenue (ascending order - consider if this should be descending for "top").
-- **`Top_5_meilleur_client_revenu`**: Lists the top 5 customers by revenue (descending order).
-- **`groupement`**: Groups clients by purchase count and total quantity, providing ranks for both.
-- **`information_vente`**: Shows sales information grouped by category and product name.
-- **`stock_restant`**: Displays initial stock, quantity sold, and remaining stock for each product and category.
-- **`topProduitMensuel`**: Shows the top product by quantity sold for each month.
-- **`topProduitMensuelRevenu`**: Shows the top product by revenue generated for each month.
-- **`RevenuQuantiteJournalier`**: Displays the number of purchases, total quantity sold, and revenue generated per day of the week.
-- **`Nb_client_tranche_age`**: Shows the number of clients in each age group.
-- **`Repartition_revenu_categorie`**: Displays the revenue generated per category.
-- **`Information_Mensuel`**: Provides monthly sales information, including total revenue, average revenue, total quantity, and number of sales.
-- **`detail_information_annuel_mensuel`**: Shows annual and monthly sales details, including turnover, average basket size, number of purchases, and distinct products sold.
-- **`Revenu_Genre`**: Displays revenue generated, total quantity, and distinct products sold, grouped by customer gender and product category.
+- **`detail_tranche_26_40`**: Affiche des informations détaillées sur les achats des clients âgés de 26 à 40 ans, y compris les catégories, le sexe, la quantité et les revenus.
+- **`produit_non_vendu`**: Liste les produits qui n'ont pas été vendus.
+- **`stock_restant2`**: Affiche le stock restant pour chaque catégorie. (Note : Il existe également une vue `stock_restant`, envisagez de clarifier ou de fusionner si elles sont similaires).
+- **`vw_top_produits`**: Affiche les 10 produits les plus vendus en termes de revenus et de quantité.
+- **`vw_achats_par_mois`**: Affiche les montants totaux des achats par mois.
+- **`V_detail_client`**: Fournit une analyse détaillée des clients, y compris le nombre d'achats, la quantité totale, les dépenses totales et les classements par quantité, fidélité et revenus.
+- **`repartition_quantité_categorie`**: Affiche la répartition des quantités achetées par catégorie.
+- **`affiche_information`**: Affiche des informations combinées sur les clients, les produits, les catégories et les achats.
+- **`nb_tranche_age`**: Affiche la somme des quantités achetées et des revenus générés par tranche d'âge des clients.
+- **`Top_5_client_revenu`**: Liste les 5 meilleurs clients par revenus (ordre croissant - vérifiez si cela ne devrait pas être décroissant pour "top").
+- **`Top_5_meilleur_client_revenu`**: Liste les 5 meilleurs clients par revenus (ordre décroissant).
+- **`groupement`**: Regroupe les clients par nombre d'achats et quantité totale, en fournissant des classements pour les deux.
+- **`information_vente`**: Affiche les informations de vente groupées par catégorie et nom de produit.
+- **`stock_restant`**: Affiche le stock initial, la quantité vendue et le stock restant pour chaque produit et catégorie.
+- **`topProduitMensuel`**: Affiche le produit le plus vendu en quantité pour chaque mois.
+- **`topProduitMensuelRevenu`**: Affiche le produit le plus vendu en termes de revenus générés pour chaque mois.
+- **`RevenuQuantiteJournalier`**: Affiche le nombre d'achats, la quantité totale vendue et les revenus générés par jour de la semaine.
+- **`Nb_client_tranche_age`**: Affiche le nombre de clients dans chaque tranche d'âge.
+- **`Repartition_revenu_categorie`**: Affiche les revenus générés par catégorie.
+- **`Information_Mensuel`**: Fournit des informations mensuelles sur les ventes, y compris les revenus totaux, les revenus moyens, la quantité totale et le nombre de ventes.
+- **`detail_information_annuel_mensuel`**: Affiche des détails sur les ventes annuelles et mensuelles, y compris le chiffre d'affaires, la taille moyenne du panier, le nombre d'achats et le nombre de produits distincts vendus.
+- **`Revenu_Genre`**: Affiche les revenus générés, la quantité totale et le nombre de produits distincts vendus, groupés par sexe du client et catégorie de produit.
 
-## Functions and Stored Procedures
+## Fonctions et Procédures Stockées
 
-The database includes the following functions and stored procedures:
+La base de données comprend les fonctions et procédures stockées suivantes :
 
-### Functions
+### Fonctions
 
-- **`fn_stock_restant(id_produit INT)`**: Returns the remaining stock for a given product ID.
+- **`fn_stock_restant(id_produit INT)`**: Retourne le stock restant pour un ID de produit donné.
 
-*(Note: The provided script.ipynb primarily contains schema definitions and views. If there are other stored procedures or functions not explicitly listed in the notebook's SQL CREATE statements, they would need to be identified and documented separately.)*
+*(Note : Le notebook `script.ipynb` fourni contient principalement des définitions de schéma et des vues. Si d'autres procédures stockées ou fonctions ne sont pas explicitement listées dans les instructions SQL CREATE du notebook, elles devront être identifiées et documentées séparément.)*
 
-## How to Use
+## Comment Utiliser
 
-1.  **Prerequisites**: Ensure you have a SQL Server instance running.
-2.  **Database Creation**:
-    *   Open the `script.ipynb` notebook using a Jupyter Notebook environment that supports SQL kernels (or copy the SQL statements into your preferred SQL management tool).
-    *   Execute the SQL cells in the notebook sequentially. This will:
-        *   Create the `magasin` database.
-        *   Create the tables: `categorie`, `produit`, `client`, and `achat`.
-        *   Create the defined views for data analysis.
-        *   Create the `fn_stock_restant` function.
-3.  **Data Population**: The script creates the schema but does not populate the tables with data. You will need to insert your own data into the tables to use the views and functions effectively.
-4.  **Querying**: Once the database is set up and populated, you can query the tables and views using standard SQL statements.
+1.  **Prérequis**: Assurez-vous d'avoir une instance SQL Server en cours d'exécution.
+2.  **Création de la Base de Données**:
+    *   Ouvrez le notebook `script.ipynb` en utilisant un environnement Jupyter Notebook qui prend en charge les noyaux SQL (ou copiez les instructions SQL dans votre outil de gestion SQL préféré).
+    *   Exécutez les cellules SQL du notebook séquentiellement. Cela va :
+        *   Créer la base de données `magasin`.
+        *   Créer les tables : `categorie`, `produit`, `client` et `achat`.
+        *   Créer les vues définies pour l'analyse des données.
+        *   Créer la fonction `fn_stock_restant`.
+3.  **Peuplement des Données**: Le script crée le schéma mais ne peuple pas les tables avec des données. Vous devrez insérer vos propres données dans les tables pour utiliser efficacement les vues et les fonctions.
+4.  **Interrogation**: Une fois la base de données configurée et peuplée, vous pouvez interroger les tables et les vues en utilisant des instructions SQL standard.

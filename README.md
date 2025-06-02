@@ -46,7 +46,7 @@ La base de données comprend plusieurs vues pour l'analyse des données :
 
 - **`detail_tranche_26_40`**: Affiche des informations détaillées sur les achats des clients âgés de 26 à 40 ans, y compris les catégories, le sexe, la quantité et les revenus.
 - **`produit_non_vendu`**: Liste les produits qui n'ont pas été vendus.
-- **`stock_restant2`**: Affiche le stock restant pour chaque catégorie. (Note : Il existe également une vue `stock_restant`, envisagez de clarifier ou de fusionner si elles sont similaires).
+- **`stock_restant2`**: Affiche le stock initial pour chaque catégorie.
 - **`vw_top_produits`**: Affiche les 10 produits les plus vendus en termes de revenus et de quantité.
 - **`vw_achats_par_mois`**: Affiche les montants totaux des achats par mois.
 - **`V_detail_client`**: Fournit une analyse détaillée des clients, y compris le nombre d'achats, la quantité totale, les dépenses totales et les classements par quantité, fidélité et revenus.

@@ -89,3 +89,14 @@ La base de données comprend les fonctions et procédures stockées suivantes :
         *   Créer la fonction `fn_stock_restant`.
 3.  **Peuplement des Données**: Le script crée le schéma mais ne peuple pas les tables avec des données. Vous devrez insérer vos propres données dans les tables pour utiliser efficacement les vues et les fonctions.
 4.  **Interrogation**: Une fois la base de données configurée et peuplée, vous pouvez interroger les tables et les vues en utilisant des instructions SQL standard.
+5.  ## Fichiers Complémentaires
+
+Ce projet inclut également les répertoires et fichiers suivants pour aider à sa compréhension et à son utilisation :
+
+-   **`image/`**: Ce répertoire contient des captures d'écran illustrant :
+    -   La connexion à la base de données SQL Server en utilisant PowerShell.
+    -   La configuration de la connexion entre SQL Server et Power BI.
+    -   Des exemples de visualisations et de tableaux de bord créés avec Power BI.
+-   **`rapport/Interactivité_sql_server.pdf`**: Un document PDF qui détaille potentiellement l'analyse des données, les interactions avec la base de données ou les conclusions du projet.
+-   **`visualisation/Interactivité_sql_server.pbix`**: Le fichier source Power BI (`.pbix`) utilisé pour créer les visualisations et les tableaux de bord interactifs basés sur les données du magasin. Vous pouvez l'ouvrir avec Power BI Desktop pour explorer les données ou modifier les rapports.
+

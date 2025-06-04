@@ -1,91 +1,77 @@
-# Projet DBA - Magasin
+# Projet d'Interaction Base de Données : SQL Server, PowerShell & Power BI
 
-Ce projet implémente une base de données SQL pour la gestion d'un magasin. Il comprend des tables pour les produits, les catégories, les clients et les achats. Plusieurs vues et fonctions sont fournies pour analyser les données de vente.
+Ce projet démontre un flux de travail complet pour la création, la manipulation et la visualisation de données en utilisant SQL Server, PowerShell et Power BI. L'objectif principal est de montrer comment ces outils peuvent interagir pour gérer et analyser des données d'un magasin fictif.
 
-Le notebook `script.ipynb` contient toutes les instructions SQL nécessaires pour créer la structure de la base de données, les tables, les vues et les fonctions.
+## Aperçu du Projet
 
-## Schéma de la Base de Données
+Le projet se déroule en plusieurs étapes clés :
 
-La base de données est constituée des tables suivantes :
+1.  **Création de la Base de Données et des Structures de Données** : Mise en place de la base de données `magasin` avec ses tables, vues et fonctions à l'aide de scripts SQL.
+2.  **Visualisation des Données avec Power BI** : Connexion de Power BI à la base de données SQL Server pour créer des rapports et des tableaux de bord interactifs.
+3.  **Interaction et Manipulation des Données via PowerShell** : Utilisation de PowerShell pour se connecter à SQL Server, insérer ou modifier des données, et observer l'impact de ces changements en temps réel sur la base de données et, par conséquent, sur les visualisations Power BI.
 
-### `categorie`
-- Objectif : Stocke les catégories de produits.
-- Colonnes :
-    - `id` (INT, Clé Primaire) : ID de la catégorie.
-    - `nom` (VARCHAR(50)) : Nom de la catégorie.
+---
 
-### `produit`
-- Objectif : Stocke les informations sur les produits.
-- Colonnes :
-    - `id` (INT, Clé Primaire) : ID du produit.
-    - `id_categorie` (INT, Clé Étrangère) : ID de la catégorie à laquelle le produit appartient.
-    - `nom_produit` (VARCHAR(90)) : Nom du produit.
-    - `prix` (INT) : Prix du produit.
-    - `stock_initial` (INT) : Quantité initiale en stock.
+## 1. Création de la Base de Données (`magasin`)
 
-### `client`
-- Objectif : Stocke les informations sur les clients.
-- Colonnes :
-    - `id` (INT, Clé Primaire) : ID du client.
-    - `nom_client` (VARCHAR(50)) : Nom du client.
-    - `age` (INT) : Âge du client.
-    - `sexe` (VARCHAR(1)) : Sexe du client (H/F).
+La première étape a consisté à définir et à créer la base de données `magasin` sur SQL Server.
 
-### `achat`
-- Objectif : Stocke les informations sur les achats.
-- Colonnes :
-    - `id` (INT, Clé Primaire) : ID de l'achat.
-    - `id_produit` (INT, Clé Étrangère) : ID du produit acheté.
-    - `id_client` (INT, Clé Étrangère) : ID du client ayant effectué l'achat.
-    - `quantite_achat` (INT) : Quantité du produit acheté.
-    - `date_achat` (DATE) : Date de l'achat.
+-   **Scripts SQL** : Tous les scripts nécessaires (création de la base de données, des tables, des vues analytiques et des fonctions) sont regroupés dans le notebook Jupyter `script/script.ipynb`.
+    -   **Tables Principales** :
+        -   `categorie` : Contient les catégories de produits.
+        -   `produit` : Contient les informations sur les produits (prix, stock, etc.).
+        -   `client` : Contient les informations sur les clients.
+        -   `achat` : Contient l'historique des achats.
+    -   **Vues Analytiques** : De nombreuses vues (par exemple, `vw_top_produits`, `Information_Mensuel`, `Revenu_Genre`, etc.) ont été créées pour faciliter l'analyse des ventes, des clients et des produits.
+    -   **Fonctions** : Une fonction `fn_stock_restant` a été créée pour calculer le stock restant d'un produit.
 
-## Vues
+---
 
-La base de données comprend plusieurs vues pour l'analyse des données :
+## 2. Visualisation des Données avec Power BI
 
-- **`detail_tranche_26_40`**: Affiche des informations détaillées sur les achats des clients âgés de 26 à 40 ans, y compris les catégories, le sexe, la quantité et les revenus.
-- **`produit_non_vendu`**: Liste les produits qui n'ont pas été vendus.
-- **`stock_restant2`**: Affiche le stock initial pour chaque catégorie.
-- **`vw_top_produits`**: Affiche les 10 produits les plus vendus en termes de revenus et de quantité.
-- **`vw_achats_par_mois`**: Affiche les montants totaux des achats par mois.
-- **`V_detail_client`**: Fournit une analyse détaillée des clients, y compris le nombre d'achats, la quantité totale, les dépenses totales et les classements par quantité, fidélité et revenus.
-- **`repartition_quantité_categorie`**: Affiche la répartition des quantités achetées par catégorie.
-- **`affiche_information`**: Affiche des informations combinées sur les clients, les produits, les catégories et les achats.
-- **`nb_tranche_age`**: Affiche la somme des quantités achetées et des revenus générés par tranche d'âge des clients.
-- **`Top_5_client_revenu`**: Liste les 5 meilleurs clients par revenus (ordre croissant - vérifiez si cela ne devrait pas être décroissant pour "top").
-- **`Top_5_meilleur_client_revenu`**: Liste les 5 meilleurs clients par revenus (ordre décroissant).
-- **`groupement`**: Regroupe les clients par nombre d'achats et quantité totale, en fournissant des classements pour les deux.
-- **`information_vente`**: Affiche les informations de vente groupées par catégorie et nom de produit.
-- **`stock_restant`**: Affiche le stock initial, la quantité vendue et le stock restant pour chaque produit et catégorie.
-- **`topProduitMensuel`**: Affiche le produit le plus vendu en quantité pour chaque mois.
-- **`topProduitMensuelRevenu`**: Affiche le produit le plus vendu en termes de revenus générés pour chaque mois.
-- **`RevenuQuantiteJournalier`**: Affiche le nombre d'achats, la quantité totale vendue et les revenus générés par jour de la semaine.
-- **`Nb_client_tranche_age`**: Affiche le nombre de clients dans chaque tranche d'âge.
-- **`Repartition_revenu_categorie`**: Affiche les revenus générés par catégorie.
-- **`Information_Mensuel`**: Fournit des informations mensuelles sur les ventes, y compris les revenus totaux, les revenus moyens, la quantité totale et le nombre de ventes.
-- **`detail_information_annuel_mensuel`**: Affiche des détails sur les ventes annuelles et mensuelles, y compris le chiffre d'affaires, la taille moyenne du panier, le nombre d'achats et le nombre de produits distincts vendus.
-- **`Revenu_Genre`**: Affiche les revenus générés, la quantité totale et le nombre de produits distincts vendus, groupés par sexe du client et catégorie de produit.
+Une fois la base de données structurée, Power BI a été utilisé pour visualiser les données et obtenir des informations exploitables.
 
-## Fonctions et Procédures Stockées
+-   **Connexion** : Power BI a été connecté directement à la base de données SQL Server `magasin`.
+    -   Des exemples de configuration de cette connexion et du schéma relationnel tel qu'il apparaît dans Power BI sont visibles dans les captures d'écran du répertoire `image/connexion_sqlserver_powerbi/`.
+-   **Tableaux de Bord et Rapports** :
+    -   Des visualisations ont été créées pour analyser les tendances de ventes, le comportement des clients, la performance des produits, etc.
+    -   Des exemples de ces visualisations sont disponibles sous forme de captures d'écran dans le répertoire `image/visualisation/`.
+    -   Le fichier source complet du tableau de bord Power BI est `visualisation/Interactivité_sql_server.pbix`. Celui-ci peut être ouvert avec Power BI Desktop pour explorer les rapports de manière interactive.
 
-La base de données comprend les fonctions et procédures stockées suivantes :
+---
 
-### Fonctions
+## 3. Interaction avec PowerShell
 
-- **`fn_stock_restant(id_produit INT)`**: Retourne le stock restant pour un ID de produit donné.
+Pour démontrer l'aspect dynamique et l'interaction programmatique avec la base de données, PowerShell a été utilisé.
 
-*(Note : Le notebook `script.ipynb` fourni contient principalement des définitions de schéma et des vues. Si d'autres procédures stockées ou fonctions ne sont pas explicitement listées dans les instructions SQL CREATE du notebook, elles devront être identifiées et documentées séparément.)*
+-   **Connexion PowerShell à SQL Server** : Des scripts PowerShell ont été utilisés pour établir une connexion à l'instance SQL Server hébergeant la base de données `magasin`.
+-   **Manipulation de Données** :
+    -   PowerShell a permis d'exécuter des requêtes SQL pour, par exemple, insérer de nouvelles données (simulant de nouvelles ventes ou de nouveaux produits) ou mettre à jour des informations existantes.
+    -   L'objectif était de montrer comment des actions externes (ici, via PowerShell) peuvent modifier la base de données.
+-   **Impact sur Power BI** : Les modifications effectuées via PowerShell sur les données SQL Server sont ensuite reflétées dans les tableaux de bord Power BI lors de leur actualisation, illustrant la connectivité de bout en bout.
+-   **Captures d'Écran** : Le processus de connexion et d'interaction avec SQL Server via PowerShell est documenté par des captures d'écran dans le répertoire `image/connexion_powershell_sqlserver/`.
 
-## Comment Utiliser
+---
 
-1.  **Prérequis**: Assurez-vous d'avoir une instance SQL Server en cours d'exécution.
-2.  **Création de la Base de Données**:
-    *   Ouvrez le notebook `script.ipynb` en utilisant un environnement Jupyter Notebook qui prend en charge les noyaux SQL (ou copiez les instructions SQL dans votre outil de gestion SQL préféré).
-    *   Exécutez les cellules SQL du notebook séquentiellement. Cela va :
-        *   Créer la base de données `magasin`.
-        *   Créer les tables : `categorie`, `produit`, `client` et `achat`.
-        *   Créer les vues définies pour l'analyse des données.
-        *   Créer la fonction `fn_stock_restant`.
-3.  **Peuplement des Données**: Le script crée le schéma mais ne peuple pas les tables avec des données. Vous devrez insérer vos propres données dans les tables pour utiliser efficacement les vues et les fonctions.
-4.  **Interrogation**: Une fois la base de données configurée et peuplée, vous pouvez interroger les tables et les vues en utilisant des instructions SQL standard.
+## Fichiers Complémentaires
+
+-   **`rapport/Interactivité_sql_server.pdf`**: Ce document PDF fournit probablement une analyse plus approfondie ou un résumé des observations et des interactions réalisées dans le cadre de ce projet.
+
+---
+
+## Comment Reproduire/Utiliser
+
+1.  **Prérequis** :
+    -   Une instance SQL Server.
+    -   SQL Server Management Studio (SSMS) ou un outil similaire pour exécuter les scripts SQL (ou un noyau SQL pour Jupyter).
+    -   Power BI Desktop.
+    -   PowerShell.
+2.  **Base de Données** : Exécutez les scripts SQL du notebook `script/script.ipynb` pour créer la base de données `magasin`, ses tables, vues et fonctions.
+3.  **Peuplement des Données** : Insérez des données initiales dans les tables. (Le notebook `script.ipynb` se concentre sur la création du schéma).
+4.  **Power BI** :
+    -   Ouvrez `visualisation/Interactivité_sql_server.pbix` avec Power BI Desktop.
+    -   Configurez la source de données pour pointer vers votre instance SQL Server et la base de données `magasin`.
+    -   Explorez les visualisations.
+5.  **PowerShell** :
+    -   Adaptez les exemples de scripts PowerShell (non fournis directement dans ce dépôt, mais dont les résultats sont visibles dans `image/connexion_powershell_sqlserver/`) pour vous connecter à votre base de données.
+    -   Exécutez des commandes pour interagir avec les données et observez les mises à jour dans SQL Server et Power BI.
